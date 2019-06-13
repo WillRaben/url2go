@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  org_url: MyText
+  short_url: MyString
+  protocol_id: 1
+  hits: 
+
+two:
+  org_url: MyText
+  short_url: MyString
+  protocol_id: 1
+  hits: 
