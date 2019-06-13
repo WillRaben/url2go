@@ -1,8 +1,15 @@
 class LongUrisController < ApplicationController
   include LongUrisHelper
-  before_action :set_long_uri, only: [:show]
+  before_action :set_long_uri, only: [:show, :index]
+
+   def index
+    @long_uri.hits += 1
+    @long_uri.save
+    redirect_to i_to_protocol(@long_uri.protocol_id)+(@long_uri.org_url)
+  end
 
   def show
+    
   end
 
   # GET /long_uris/new
@@ -21,11 +28,11 @@ class LongUrisController < ApplicationController
           @long_uri.short_url = uri_encode(@long_uri.id)
           @long_uri.save
           format.html { redirect_to action: "show", short_url: @long_uri.short_url }
-          format.json { render :json {status: 501} }
+          #format.json { render :json, status: '501'} }
           #format.json { render :show, status: :created, location: @long_uri.short_url }
       else
           format.html { render :new }
-          format.json { render :json {status: 501} }
+          #format.json { render :json, status: '501' }
           #format.json { render json: @long_uri.errors, status: :unprocessable_entity }
       end
     end
@@ -34,7 +41,7 @@ class LongUrisController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_long_uri
-      @long_uri = LongUri.find(params[:id])
+      @long_uri = LongUri.find_by short_url: params[:short_url]
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

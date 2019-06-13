@@ -1,0 +1,8 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Here's your short url:</strong>
+  <%= link_to nil, request.headers["HTTP_REFERER"]+@long_uri.short_url %>
+</p>
+
+<%= link_to 'New URL', "/"%>
