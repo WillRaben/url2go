@@ -3,6 +3,10 @@ class LongUrisController < ApplicationController
   before_action :set_long_uri, only: [:show, :index]
 
    def index
+    if @long_uri == nil
+      redirect_to('/', {:flash => { :notice => "404" }})
+      return
+    end
     @long_uri.hits += 1
     @long_uri.save
     redirect_to i_to_protocol(@long_uri.protocol_id)+(@long_uri.org_url)
