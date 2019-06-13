@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Top Hits</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Short url</th>
+      <th>Hits</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @top_hits.each do |top_hit| %>
+      <tr>
+        <td><%= top_hit.title.to_s %></td>
+        <td><%= link_to nil, request.headers["HTTP_REFERER"]+top_hit.short_url %></td>
+        <td><%= top_hit.hits %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Home', "/"%>

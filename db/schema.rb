@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_13_011239) do
+ActiveRecord::Schema.define(version: 2019_06_13_082937) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,8 +22,17 @@ ActiveRecord::Schema.define(version: 2019_06_13_011239) do
     t.bigint "hits", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["hits"], name: "index_long_uris_on_hits"
     t.index ["org_url"], name: "index_long_uris_on_org_url"
     t.index ["short_url"], name: "index_long_uris_on_short_url"
+  end
+
+  create_table "top_hits", force: :cascade do |t|
+    t.string "title"
+    t.string "short_url"
+    t.integer "hits"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

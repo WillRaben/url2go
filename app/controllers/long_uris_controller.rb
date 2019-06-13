@@ -9,24 +9,27 @@ class LongUrisController < ApplicationController
   end
 
   def show
-    
   end
 
-  # GET /long_uris/new
   def new
     @long_uri = LongUri.new
   end
 
-  # POST /long_uris
-  # POST /long_uris.json
   def create
     @long_uri = LongUri.new(long_uri_params)
     @long_uri.protocol_id = protocol_to_i(params[:long_uri][:org_url][/^https?\:\/\//])
+    if (Regexp::PERFECT_URL_PATTERN =~ @long_uri.org_url) == nil
+      redirect_to('/', {:flash => { :notice => "Invalid URL!" }})
+      return
+    end
     @long_uri.org_url = params[:long_uri][:org_url].sub(/^https?\:\/\/(www.)?/,'')
     respond_to do |format|
       if  @long_uri.save
           @long_uri.short_url = uri_encode(@long_uri.id)
           @long_uri.save
+          if LongUri.count > 150
+            Top100ProcessJob.perform_later
+          end 
           format.html { redirect_to action: "show", short_url: @long_uri.short_url }
           #format.json { render :json, status: '501'} }
           #format.json { render :show, status: :created, location: @long_uri.short_url }

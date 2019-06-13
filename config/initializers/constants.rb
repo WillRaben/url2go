@@ -2,8 +2,7 @@ ENC_KEYS_64 = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_-"
 ENC_KEYS_HASH = (ENC_KEYS_64.each_char.with_index.inject({}) { |hash, (key, value)| hash[key] = value; hash }).freeze
 ENC_BASE = ENC_KEYS_64.length.freeze
 PROTOCOL_HASH =  {:http=>"http://", :https=>"https://"}.freeze
-
-
+\
 
 
 #usage Regexp::PERFECT_URL_PATTERN =~ valid_url  returns 0 when valid and nil when illegal url
@@ -13,8 +12,7 @@ class Regexp
     \A
 
     # protocol identifier
-    #(?:(?:https?|ftp)://)
-    (?:(?:https?)://)
+    (?:(?:https?|ftp)://)
 
     # user:pass authentication
     (?:\S+(?::\S*)?@)?

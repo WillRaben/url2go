@@ -1,0 +1,2 @@
+class TopHit < ApplicationRecord
+end

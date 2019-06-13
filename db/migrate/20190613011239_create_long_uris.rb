@@ -10,5 +10,6 @@ class CreateLongUris < ActiveRecord::Migration[5.2]
     end
     add_index :long_uris, :org_url 
     add_index :long_uris, :short_url
+    add_index :long_uris, :hits
   end
 end
