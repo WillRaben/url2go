@@ -1,24 +1,31 @@
-# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+It aims to mimic an url-shortener, at least in functionality.
 
-Things you may want to cover:
+To install locally under development env.
 
-* Ruby version
+1 Clone the repository
 
-* System dependencies
+https://github.com/WillRaben/url2go.git
 
-* Configuration
+2 run "bundle"
 
-* Database creation
+3 rename database.yml.org to database.yml and edit according to local setup
 
-* Database initialization
+4 run "rails db:create db:migrate"
 
-* How to run the test suite
+5 run "rails s -b 0.0.0.0"
 
-* Services (job queues, cache servers, search engines, etc.)
+6 access the application through the browser on port 3000
 
-* Deployment instructions
 
-* ...
+Considerations:
+
+The request was to achieve the shortest url possible and the algorithm that I chose for that end  was that of encoding unique bigint (signed 8byte) ids to a base64 using the standard url charset which consists of the following chars according to my research.
+
+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_- 
+
+using this technique running base64_encode(9999999999) returns an unique representation of only 6 character 9K2_F-
+this process goes both ways so we can retrieve this long number by passing 9k2_f- to base64_decode.
+
+The functions are located in app/helpers/long_uris_helper.rb and they use constants declared in config/initializers/constants.rb
+
