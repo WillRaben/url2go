@@ -20,15 +20,17 @@ class LongUrisController < ApplicationController
   end
 
   def create
-    @long_uri = LongUri.new(long_uri_params)
-    @long_uri.protocol_id = protocol_to_i(params[:long_uri][:org_url][/^https?\:\/\//])
-    if (Regexp::PERFECT_URL_PATTERN =~ @long_uri.org_url) == nil
+    if (Regexp::PERFECT_URL_PATTERN =~ params[:long_uri][:org_url]) == nil
       redirect_to('/', {:flash => { :notice => "Invalid URL!" }})
       return
     end
-    @long_uri.org_url = params[:long_uri][:org_url].sub(/^https?\:\/\/(www.)?/,'')
     respond_to do |format|
-      if  @long_uri.save
+      if  @long_uri = LongUri.find_or_create_by(org_url: params[:long_uri][:org_url].sub(/^https?\:\/\/(www.)?/,''))
+          if @long_uri.short_url != ''
+            redirect_to action: "show", short_url: @long_uri.short_url
+            return
+          end
+          @long_uri.protocol_id = protocol_to_i(params[:long_uri][:org_url][/^https?\:\/\//])
           @long_uri.short_url = uri_encode(@long_uri.id)
           @long_uri.save
           if LongUri.count > 150
