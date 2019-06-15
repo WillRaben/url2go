@@ -13,6 +13,10 @@ class LongUrisController < ApplicationController
   end
 
   def show
+    if @long_uri == nil
+      redirect_to('/', {:flash => { :notice => "404" }})
+      return
+    end
   end
 
   def new
