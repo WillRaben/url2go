@@ -4,7 +4,7 @@ class LongUrisController < ApplicationController
 
    def index
     if @long_uri == nil
-      redirect_to('/', {:flash => { :notice => "404" }})
+      redirect_to('/', {:flash => { :danger => "404" }})
       return
     end
     @long_uri.hits += 1
@@ -14,7 +14,7 @@ class LongUrisController < ApplicationController
 
   def show
     if @long_uri == nil
-      redirect_to('/', {:flash => { :notice => "404" }})
+      redirect_to('/', {:flash => { :danger => "404" }})
       return
     end
   end
@@ -25,7 +25,7 @@ class LongUrisController < ApplicationController
 
   def create
     if (Regexp::PERFECT_URL_PATTERN =~ params[:long_uri][:org_url]) == nil
-      redirect_to('/', {:flash => { :notice => "Invalid URL!" }})
+      redirect_to('/', {:flash => { :danger => "Invalid URL!"  }})
       return
     end
     respond_to do |format|

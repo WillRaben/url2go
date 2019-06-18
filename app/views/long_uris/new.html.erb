@@ -1,6 +1,13 @@
-<h1>Enter URL to shorten</h1>
-<p id="notice"><%= notice %></p>
+<div class="container-fluid mt-3">
+    <div class="jumbotron">
+        <h3>Enter URL to shorten:</h3>
 
-<%= render 'form', long_uri: @long_uri %>
+        <% flash.each do |key, value| %>
+        <div class="alert alert-<%= key %>"><%= value %></div>
+        <% end %>
 
-<%= link_to 'Top100', "/"%>
+        <%= render 'form', long_uri: @long_uri %>
+
+        <%#= link_to 'Top100', "/"%>
+    </div>
+</div>

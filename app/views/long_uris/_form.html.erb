@@ -11,12 +11,11 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :org_url %>
-    <%= form.text_area :org_url %>
+  <div class="form-group">
+    <%= form.text_field :org_url, class: "form-control"%>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit 'Get Short URL' , class: "btn btn-dark"%>
   </div>
 <% end %>
