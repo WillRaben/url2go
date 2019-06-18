@@ -1,5 +1,6 @@
+Application created as part of selection process for a remote ruby on rails full stack position.
 
-It aims to mimic an url-shortener, at least in functionality.
+It aims to mimic an url-shortener in functionality.
 
 To install locally under development env.
 
@@ -24,7 +25,7 @@ The request was to achieve the shortest url possible and the algorithm that I ch
 
 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_- 
 
-using this technique running base64_encode(9999999999) returns an unique representation of only 6 character 9K2_F-
+Using this technique, running base64_encode(9999999999) returns an unique representation of only 6 character 9K2_F-
 this process goes both ways so we can retrieve this long number by passing 9k2_f- to base64_decode.
 
 The functions are located in app/helpers/long_uris_helper.rb and they use constants declared in config/initializers/constants.rb
