@@ -1,7 +1,7 @@
 class TopHitsController < ApplicationController
   
   def index
-    @top_hits = TopHit.all
+    @top_hits = TopHit.all.order(hits: :desc).take(100)
   end
 
     # Never trust parameters from the scary internet, only allow the white list through.

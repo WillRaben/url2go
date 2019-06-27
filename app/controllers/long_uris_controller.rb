@@ -29,7 +29,7 @@ class LongUrisController < ApplicationController
       return
     end
     respond_to do |format|
-      if  @long_uri = LongUri.find_or_create_by(org_url: params[:long_uri][:org_url].sub(/^https?\:\/\/(www.)?/,''))
+      if  @long_uri = LongUri.find_or_create_by(org_url: params[:long_uri][:org_url].sub(/^https?\:\/\//,''))
           if @long_uri.short_url != ''
             redirect_to action: "show", short_url: @long_uri.short_url
             return
@@ -37,9 +37,10 @@ class LongUrisController < ApplicationController
           @long_uri.protocol_id = protocol_to_i(params[:long_uri][:org_url][/^https?\:\/\//])
           @long_uri.short_url = uri_encode(@long_uri.id)
           @long_uri.save
-          if LongUri.count > 150
-            Top100ProcessJob.perform_later
-          end 
+          #
+          #if (@long_uri.id % 100) == 0
+          #  Top100ProcessJob.perform_later
+          #end
           format.html { redirect_to action: "show", short_url: @long_uri.short_url }
           #format.json { render :json, status: '501'} }
           #format.json { render :show, status: :created, location: @long_uri.short_url }

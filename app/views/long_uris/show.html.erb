@@ -2,7 +2,7 @@
   <div class="jumbotron">
     <p>
       <strong>Here's your short url:</strong>
-      <%= link_to nil, request.headers["HTTP_REFERER"]+@long_uri.short_url %>
+      <%= link_to nil, request.original_url() %>
     </p>
 
     <%= link_to 'New URL', "/" ,  class: "btn btn-dark"%>
