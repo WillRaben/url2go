@@ -30,6 +30,8 @@ gem 'jbuilder', '~> 2.5'
 # gem 'mini_magick', '~> 4.8'
 gem 'bootstrap', '~> 4.3.1'
 gem 'jquery-rails'
+gem 'sidekiq'
+gem 'sidekiq-scheduler'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
