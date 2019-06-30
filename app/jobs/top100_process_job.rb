@@ -11,8 +11,11 @@ include LongUrisHelper
     url = i_to_protocol(element.protocol_id)+(element.org_url)
       begin
           puts "HITTING: " + url #for production demostration/debugging only, --remove
-          #title = Net::HTTP.get(URI.parse(url)).scan(/<title>(.*?)<\/title>/).first.flatten.join.slice(0,140)
           title = Nokogiri::HTML(Net::HTTP.get(URI.parse(url))).css("title")[0].text
+          if title.include? "301 Moved"
+            url = i_to_protocol(element.protocol_id)+"www"+(element.org_url)
+            title = Nokogiri::HTML(Net::HTTP.get(URI.parse(url))).css("title")[0].text
+          end
 
         rescue SocketError => err
           puts "ERROR: #{err.message}"
@@ -31,7 +34,9 @@ include LongUrisHelper
           next
       end
       hit = TopHit.where(short_url: element.short_url).first_or_initialize
-      hit.title = title
+        if !hit.title? || hit.title.include?("301 Moved")
+          hit.title = title
+        end
       hit.hits = element.hits
       hit.save!
     end
