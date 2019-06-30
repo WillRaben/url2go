@@ -14,7 +14,7 @@
     <% @top_hits.each do |top_hit| %>
       <tr>
         <td><%= top_hit.title.to_s %></td>
-        <td><%= link_to URI.parse(request.original_url()).host+'/'+top_hit.short_url , top_hit.short_url %></td>
+        <td><%= link_to URI.parse(request.original_url()).host+'/'+top_hit.short_url , root_path + top_hit.short_url %></td>
         <td><%= top_hit.hits %></td>
       </tr>
     <% end %>

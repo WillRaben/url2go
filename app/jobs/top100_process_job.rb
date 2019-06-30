@@ -14,6 +14,7 @@ include LongUrisHelper
           title = Nokogiri::HTML(Net::HTTP.get(URI.parse(url))).css("title")[0].text
           if title.include? "301 Moved"
             url = i_to_protocol(element.protocol_id)+"www"+(element.org_url)
+            puts "TRYING" + url
             title = Nokogiri::HTML(Net::HTTP.get(URI.parse(url))).css("title")[0].text
           end
 

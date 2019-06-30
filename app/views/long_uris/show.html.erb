@@ -2,7 +2,8 @@
   <div class="jumbotron">
     <p>
       <strong>Here's your short url:</strong>
-      <%= link_to nil, request.original_url() %>
+      <%= link_to root_url + @long_uri.short_url, root_url + @long_uri.short_url %>
+      <%#= root link_to params[:short_url], URI.parse(request.original_url()).host+URI.parse(request.original_url()).port.to_s+'/'+params[:short_url] %>
     </p>
 
     <%= link_to 'New URL', "/" ,  class: "btn btn-dark"%>
