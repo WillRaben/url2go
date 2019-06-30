@@ -1,5 +1,7 @@
 class Top100ProcessJob < ApplicationJob
+self.queue_adapter = :sidekiq
 require 'net/http'
+require 'nokogiri'
 include LongUrisHelper
   queue_as :default
 
@@ -8,8 +10,10 @@ include LongUrisHelper
     url_array.each do |element|
     url = i_to_protocol(element.protocol_id)+(element.org_url)
       begin
-          puts "HITTING: " + url #for production demostration only, --remove
-          title = Net::HTTP.get(URI.parse(url)).scan(/<title>(.*?)<\/title>/).first.flatten.join.slice(0,140)
+          puts "HITTING: " + url #for production demostration/debugging only, --remove
+          #title = Net::HTTP.get(URI.parse(url)).scan(/<title>(.*?)<\/title>/).first.flatten.join.slice(0,140)
+          title = Nokogiri::HTML(Net::HTTP.get(URI.parse(url))).css("title")[0].text
+
         rescue SocketError => err
           puts "ERROR: #{err.message}"
           title = "Error: Link appears to malformed"

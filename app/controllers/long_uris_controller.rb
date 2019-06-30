@@ -39,7 +39,7 @@ class LongUrisController < ApplicationController
           @long_uri.save
           #
           #if (@long_uri.id % 100) == 0
-          #  Top100ProcessJob.perform_later
+            Top100ProcessJob.perform_later
           #end
           format.html { redirect_to action: "show", short_url: @long_uri.short_url }
           #format.json { render :json, status: '501'} }
