@@ -1,10 +1,18 @@
 <div class="jumbotron">
-    <h3>Enter URL to shorten:</h3>
-
+    <div class="container-fluid">
+        <div class="row pb-2">
+            <div class="col-4 ml-0 pl-0">
+                <h3 class=" ml-0">Enter URL to shorten:</h3>
+            </div>
+            <div class="col-6">
+            </div>
+            <div class="col-2 mr-0 pr-1 text-right">
+                <%= link_to "#Rankings", "/top_hits", class: "text-info"%>
+            </div>
+        </div>
+    </div>
     <% flash.each do |key, value| %>
-    <div class="alert alert-<%= key %>"><%= value %></div>
+        <div class="alert alert-<%= key %>"><%= value %></div>
     <% end %>
-
     <%= render 'form', long_uri: @long_uri %>
-    <%#= link_to 'Top100', "/"%>
 </div>
