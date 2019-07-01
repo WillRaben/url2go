@@ -1,13 +1,10 @@
-<div class="container-fluid mt-3">
-    <div class="jumbotron">
-        <h3>Enter URL to shorten:</h3>
+<div class="jumbotron">
+    <h3>Enter URL to shorten:</h3>
 
-        <% flash.each do |key, value| %>
-        <div class="alert alert-<%= key %>"><%= value %></div>
-        <% end %>
+    <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+    <% end %>
 
-        <%= render 'form', long_uri: @long_uri %>
-
-        <%#= link_to 'Top100', "/"%>
-    </div>
+    <%= render 'form', long_uri: @long_uri %>
+    <%#= link_to 'Top100', "/"%>
 </div>

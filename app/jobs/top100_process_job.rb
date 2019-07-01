@@ -12,9 +12,9 @@ include LongUrisHelper
       begin
           puts "HITTING: " + url #for production demostration/debugging only, --remove
           title = Nokogiri::HTML(Net::HTTP.get(URI.parse(url))).css("title")[0].text
-          if title.include? "301 Moved"
+          if !title || title.include? "301 Moved"
             url = i_to_protocol(element.protocol_id)+"www"+(element.org_url)
-            puts "TRYING" + url
+            puts "TRYING: " + url
             title = Nokogiri::HTML(Net::HTTP.get(URI.parse(url))).css("title")[0].text
           end
 
@@ -27,7 +27,7 @@ include LongUrisHelper
           title = "Error: Link appears to be down"
           next
         rescue Errno::ECONNREFUSED => err
-          title = "Error: Connection Refuse by host"
+          title = "Error: Connection Refused by host"
           next
         rescue Exception => err
           puts "ERROR: #{err.message}"
